@@ -61,8 +61,8 @@
    ;|		     ld      l,78h		ld      l,78h		|
    ;|___________________________________________________________________|
 
-    if terminal eq console
-      if conterm eq adm3a
+    if ((terminal)=(console))
+      if ((conterm)=(adm3a))
 
 ;;===========================================================================
 ;; mttyq:
@@ -203,8 +203,8 @@ mcls0:
 ;############################################################################
 
 ; Load these drivers if we need support for an auxiliary terminal
-    if	terminal eq auxiliary
-      if auxterm eq adm3a
+    if	((terminal)=(auxiliary))
+      if ((auxterm)=(adm3a))
 
 ;;===========================================================================
 ;; attyq:
@@ -298,7 +298,7 @@ mcls0:
 ; different types.  If they are the same then Z8E can use the console driver
 ; to position the cursor on the auxiliary screen.
 
-	if	auxterm ne conterm
+	if	((auxterm)<>(conterm))
 
 	export	axycp
 ;axycp:
@@ -367,7 +367,7 @@ acls0:
 
 ; Console ...
 
-    if conterm eq adm3a		; then we definitely need these
+    if ((conterm)=(adm3a))	; then we definitely need these
 
 ; Configuration bytes for main terminal - ADM3A (and similar)
 
@@ -396,7 +396,7 @@ acls0:
 
 ; Auxiliary ...
 
-    if auxterm eq adm3a
+    if ((auxterm)=(adm3a))
 
 ; Configuration bytes for auxiliary terminal - ADM3A and similar
 
@@ -416,7 +416,7 @@ acls0:
 ; The lead-in string is only needed if the console and auxiliary terminals
 ; are different types
 
-      if auxterm ne conterm
+      if ((auxterm)<>(conterm))
 
 	export	axystr
 ;axystr:

@@ -57,7 +57,8 @@
    ;|		     ld      l,78h		ld      l,78h		|
    ;|___________________________________________________________________|
 
-    if (terminal eq console) and (conterm eq vt52)
+    if	((terminal)=(console))
+      if	((conterm)=(vt52))
 
 ;;===========================================================================
 ;; mttyq:
@@ -184,7 +185,8 @@ mcls0:
 	djnz	mcls0		; Count down and loop until all sent
 	ret
 
-    endif	; (conterm eq vt52) and (terminal eq console)
+      endif	; conterm eq vt52
+    endif	; terminal eq console
 
 ;############################################################################
 ;# THE CODE FROM HERE ONWARDS ONLY EXISTS IF Z8E IS BEING ASSEMBLED TO USE  #
@@ -194,8 +196,8 @@ mcls0:
 
 ; Load these drivers to support an auxiliary terminal 
 
-    if terminal eq auxiliary
-      if auxterm eq vt52
+    if ((terminal)=(auxiliary))
+      if ((auxterm)=(vt52))
 
 ;;===========================================================================
 ;; attyq:
@@ -289,7 +291,7 @@ mcls0:
 ; different types.  If they are the same then Z8E can use the console driver
 ; to position the cursor on the auxiliary screen.
 
-	if	auxterm ne conterm
+	if	((auxterm)<>(conterm))
 
 	export	axycp
 ;axycp:
@@ -357,7 +359,7 @@ acls0:
 
 ; Configuration bytes for console - DEC VT52
 
-    if conterm eq vt52
+    if ((conterm)=(vt52))
 
 	export	mrowb4
 ;mrowb4:
@@ -383,7 +385,7 @@ acls0:
 
 ; Configuration bytes for auxiliary terminal - DEC VT52
 
-    if auxterm eq vt52
+    if ((auxterm)=(vt52))
 
 	export	arowb4
 ;arowb4:

@@ -1,25 +1,18 @@
-.PREFIX:
-.PREFIX: .z80 .rel
+# Z8E v4.2. One image, assembled with z88dk-z80asm.
+# src/config.inc is the configuration. The other *.inc files are samples.
 
-SRCS = z8e.z80
+.PHONY: all clean
 
-all: z8e.z80
-	cp 18e1.inc config.inc
-	zxcc m80 -"=z8e.z80"
-	zxcc l80 -"z8e,z8e/n/y/e"
-	mv z8e.com 18e1.com
-	cp 18e2.inc config.inc
-	zxcc m80 -"=z8e.z80"
-	zxcc l80 -"z8e,z8e/n/y/e"
-	mv z8e.com 18e2.com
-	cp z8e1.inc config.inc
-	zxcc m80 -"=z8e.z80"
-	zxcc l80 -"z8e,z8e/n/y/e"
-	mv z8e.com z8e1.com
-	cp z8e2.inc config.inc
-	zxcc m80 -"=z8e.z80"
-	zxcc l80 -"z8e,z8e/n/y/e"
-	mv z8e.com z8e2.com
+all: ../build/z8e.com
+
+../build/z8e.com: z8e.asm config.inc terminal.inc ansi.tty adm3a.tty vt52.tty d8227.tty
+	mkdir -p ../build
+	PATH=/data/z88dk/bin:$$PATH ZCCCFG=/data/z88dk/lib/config \
+		z88dk-z80asm -mz80 -ucase -b -l -s z8e.asm
+	mv -f z8e_CODE.bin ../build/z8e.com
+	rm -f z8e.bin
+	mv -f z8e.o z8e.lis z8e.sym ../build/
 
 clean:
-	rm -f *.com *.rel *.prn *.sym core *~
+	rm -f z8e.bin z8e.o z8e.lis z8e.sym
+	rm -f ../build/z8e.com ../build/z8e.o ../build/z8e.lis ../build/z8e.sym

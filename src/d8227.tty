@@ -198,8 +198,8 @@ mcls0:
 ;############################################################################
 
 ; Load these drivers if we need support for an auxiliary terminal
-    if terminal eq auxiliary
-      if auxterm eq d8227
+    if ((terminal)=(auxiliary))
+      if ((auxterm)=(d8227))
 
 ;;===========================================================================
 ;; attyq:
@@ -293,7 +293,7 @@ mcls0:
 ; different types.  If they are the same then Z8E can use the console driver
 ; to position the cursor on the auxiliary screen.
 
-	if	auxterm ne conterm
+	if	((auxterm)<>(conterm))
 
 	export	axycp
 ;axycp:
@@ -362,7 +362,7 @@ acls0:
 
 ; Auxiliary
 
-    if auxterm eq d8227
+    if ((auxterm)=(d8227))
 
 ; Configuration bytes for auxiliary terminal - Datapoint 8227 and similar.
 
@@ -391,7 +391,7 @@ acls0:
 
 ; Console
 
-    if conterm eq d8227
+    if ((conterm)=(d8227))
 
 ; Configuration bytes for console - Datapoint 8227 and similar
 
